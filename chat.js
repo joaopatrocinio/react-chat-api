@@ -5,9 +5,12 @@ const io = require('socket.io')(http)
 const database = require("./database.js")
 
 require('dotenv').config()
-app.use(express.static('public'))
 
 const port = process.env.PORT
+
+app.get("/", (req, res) => {
+    res.send("Server is running.")
+})
 
 database.connectToServer((err) => {
     if (err) return console.log(err)
