@@ -26,6 +26,12 @@ database.connectToServer((err) => {
         const messages = db.collection("messages")
         console.log("DatabaseUserSessionStart")
 
+        messages.find({}).toArray((err, results) => {
+            if (err) throw err
+            client.emit("previous messages", results)
+            console.log("SendPreviousMessages")
+        })
+
         client.on('chat message', msg => {
 
             messages.insertOne({
